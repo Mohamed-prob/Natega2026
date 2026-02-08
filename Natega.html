@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نتيجة 2026 الكاملة - النسخة النهائية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
+        body { font-family: 'Amiri', serif; background: #444; margin: 0; padding: 0; }
+        .page-break { page-break-after: always; display: flex; justify-content: center; padding: 20px; }
+        .natega-card { 
+            width: 105mm; height: 148mm; background: white; border: 4px double #000; 
+            padding: 10px; box-sizing: border-box; display: flex; flex-direction: column;
+        }
+        .header-day { font-size: 60px; border-bottom: 4px solid #1a4d2e; text-align: center; margin-bottom: 5px; line-height: 1.2; }
+        
+        .numbers-container { 
+            display: flex; justify-content: space-around; align-items: center; 
+            margin: 10px 0; border-bottom: 1px solid #eee; padding-bottom: 10px;
+        }
+        .big-number-box { text-align: center; flex: 1; }
+        .big-num { font-size: 110px; font-weight: bold; line-height: 0.9; display: block; }
+
+        .months-row { display: flex; justify-content: space-around; margin: 10px 0; }
+        .month-box { border: 2px solid #000; border-radius: 12px; padding: 5px; min-width: 145px; text-align: center; }
+        .month-text { font-size: 22px; font-weight: bold; display: block; }
+
+        .coptic-section { font-size: 22px; background: #e8f5e9; border: 2px solid #1a4d2e; padding: 5px; text-align: center; margin: 5px 0; font-weight: bold; border-radius: 5px; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: auto; }
+        th, td { border: 1px solid #000; padding: 3px; text-align: center; font-weight: bold; }
+        th { background-color: #1a4d2e; color: white; }
+        .footer { text-align: center; font-size: 18px; font-weight: bold; margin-top: 5px; border-top: 2px solid #000; padding-top: 5px; }
+        
+        @media print { 
+            body { background: none; } 
+            .page-break { padding: 0; margin: 0; border: none; } 
+            @page { size: A6; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    const daysArr = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+    const mNames = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+    const hNames = ["رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة", "محرم", "صفر", "ربيع أول", "ربيع ثاني", "جمادى أول", "جمادى ثاني"];
+    const cNames = ["كيهك", "طوبة", "أمشير", "برمهات", "برمودة", "بشنس", "بؤونة", "أبيب", "مسرى", "نسئ", "توت", "بابة", "هاتور"];
+
+    let startDate = new Date(2026, 0, 1);
+    
+    // إعدادات البداية (1 يناير 2026 = 12 رجب 1447 = 23 كيهك 1742)
+    let hDay = 12; let hMonthIdx = 0; let hYear = 1447;
+    let cDay = 23; let cMonthIdx = 0; let cYear = 1742;
+
+    const container = document.getElementById('container');
+
+    for (let i = 0; i < 365; i++) {
+        let current = new Date(startDate);
+        current.setDate(startDate.getDate() + i);
+        
+        let html = `
+        <div class="page-break">
+            <div class="natega-card">
+                <div class="header-day">${daysArr[current.getDay()]}</div>
+                
+                <div class="numbers-container">
+                    <div class="big-number-box">
+                        <span class="big-num">${current.getDate().toLocaleString('ar-EG')}</span>
+                    </div>
+                    <div class="big-number-box">
+                        <span class="big-num">${hDay.toLocaleString('ar-EG')}</span>
+                    </div>
+                </div>
+
+                <div class="months-row">
+                    <div class="month-box">
+                        <span class="month-text">${mNames[current.getMonth()]} ٢٠٢٦ م</span>
+                    </div>
+                    <div class="month-box">
+                        <span class="month-text">${hNames[hMonthIdx]} ${hYear.toLocaleString('ar-EG')} هـ</span>
+                    </div>
+                </div>
+
+                <div class="coptic-section">
+                   ${cDay.toLocaleString('ar-EG')} ${cNames[cMonthIdx]} ${cYear.toLocaleString('ar-EG')} ق
+                </div>
+
+                <table>
+                    <tr><th>المدينة</th><th>فجر</th><th>شروق</th><th>ظهر</th><th>عصر</th><th>مغرب</th><th>عشاء</th></tr>
+                    <tr><td>القاهرة</td><td>٠٥:١٨</td><td>٠٦:٥١</td><td>١١:٥٩</td><td>٠٢:٤٨</td><td>٠٥:٠٦</td><td>٠٦:٢٩</td></tr>
+                    <tr><td>الإسكندرية</td><td>٠٥:٢٥</td><td>٠٦:٥٩</td><td>١٢:٠٤</td><td>٠٢:٥٠</td><td>٠٥:٠٩</td><td>٠٦:٣٣</td></tr>
+                    <tr><td>المنصورة</td><td>٠٥:١٩</td><td>٠٦:٥٣</td><td>١١:٥٩</td><td>٠٢:٤٦</td><td>٠٥:٠٤</td><td>٠٦:٢٨</td></tr>
+                </table>
+                <div class="footer">كل عام وأنتم بخير - نتيجة السحار ٢٠٢٦</div>
+            </div>
+        </div>`;
+        
+        container.innerHTML += html;
+
+        // تحديث التاريخ الهجري (تبسيطاً 30 يوم للشهر)
+        hDay++; if(hDay > 30) { hDay = 1; hMonthIdx++; if(hMonthIdx > 11){hMonthIdx=0; hYear++;} }
+        // تحديث التاريخ القبطي (تبسيطاً 30 يوم للشهر)
+        cDay++; if(cDay > 30) { cDay = 1; cMonthIdx++; if(cMonthIdx > 12){cMonthIdx=0; cYear++;} }
+    }
+</script>
+</body>
+</html>
